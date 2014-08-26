@@ -40,6 +40,12 @@ GEM
       uber (~> 0.0.4)
     http_parser.rb (0.6.0)
     i18n (0.6.11)
+    jasmine (2.0.2)
+      jasmine-core (~> 2.0.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.0.2)
     json (1.8.1)
     kramdown (1.4.1)
     listen (2.7.9)
@@ -87,11 +93,13 @@ GEM
       tilt (~> 1.4.1)
     padrino-support (0.12.3)
       activesupport (>= 3.1)
+    phantomjs (1.9.7.1)
     rack (1.5.2)
     rack-livereload (0.3.15)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.3.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -121,5 +129,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  jasmine (~> 2.0.2)
   middleman (~> 3.3.5)
   middleman-livereload (~> 3.1.0)
