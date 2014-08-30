@@ -8,6 +8,7 @@ Jasmine.configure do |config|
   config.add_rack_path("/source/", lambda {
     Sprockets::Environment.new do |env|
       env.append_path("source/javascripts")
+      env.append_path("bower_components")
     end
   })
 
