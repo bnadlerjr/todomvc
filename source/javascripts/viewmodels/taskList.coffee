@@ -6,6 +6,6 @@ class App.ViewModels.TaskList
         @items = ko.observableArray()
         @newTaskInput = ko.observable()
 
-    addItem: (title) ->
+    addItem: ->
         @items.push(new App.Models.Task({title: @newTaskInput()}))
         @newTaskInput("")
