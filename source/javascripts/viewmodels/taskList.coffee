@@ -24,6 +24,11 @@ class App.ViewModels.TaskList
 
     saveEditedItem: (item) =>
         item.editing(false)
+        trimmedTitle = item.title().trim()
+        if trimmedTitle
+            item.title(trimmedTitle)
+        else
+            @items.remove(item)
 
     isVisible: ->
         @items().length > 0

@@ -77,28 +77,45 @@ describe "task list view model", ->
             expect(@taskList.items()).toEqual([])
 
     describe "editing an item", ->
-        it "can be placed in edit mode", ->
-            @taskList.items([@task])
-            @taskList.editItem(@task)
-            expect(@task.editing()).toEqual(true)
-            expect(@task.previousTitle).toEqual("My Task")
-
-        it "can cancel edit mode", ->
+        beforeEach ->
             @taskList.items([@task])
             @taskList.editItem(@task)
 
-            @task.title("edited title")
+        describe "edit mode", ->
+            it "sets the edit flag to true", ->
+                expect(@task.editing()).toEqual(true)
 
-            @taskList.cancelEditingItem(@task)
-            expect(@task.editing()).toBe(false)
-            expect(@task.title()).toEqual("My Task")
+            it "stores the unedited title", ->
+                expect(@task.previousTitle).toEqual("My Task")
 
-        it "can save changes", ->
-            @taskList.items([@task])
-            @taskList.editItem(@task)
+        describe "canceling edit mode", ->
+            beforeEach ->
+                @task.title("edited title")
+                @taskList.cancelEditingItem(@task)
 
-            @task.title("edited title")
+            it "sets the edit flag to false", ->
+                expect(@task.editing()).toBe(false)
 
-            @taskList.saveEditedItem(@task)
-            expect(@task.editing()).toBe(false)
-            expect(@task.title()).toEqual("edited title")
+            it "restores the task title", ->
+                expect(@task.title()).toEqual("My Task")
+
+        describe "saving changes", ->
+            it "sets editing flag to false", ->
+                @task.title("edited title")
+                @taskList.saveEditedItem(@task)
+                expect(@task.editing()).toBe(false)
+
+            it "updates the title", ->
+                @task.title("edited title")
+                @taskList.saveEditedItem(@task)
+                expect(@task.title()).toEqual("edited title")
+
+            it "trims the title before updating", ->
+                @task.title("     edited title     ")
+                @taskList.saveEditedItem(@task)
+                expect(@task.title()).toEqual("edited title")
+
+            it "removes the item if the title is blank", ->
+                @task.title("")
+                @taskList.saveEditedItem(@task)
+                expect(@taskList.items().length).toEqual(0)
