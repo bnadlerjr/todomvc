@@ -10,6 +10,7 @@
     <ul id="todo-list" data-bind="foreach: items">
       <li data-bind="css { completed: completed() }">
         <div class="view">
+          <input class="toggle" type="checkbox" data-bind="checked: completed">
           <label data-bind="text: title"></label>
         </div>
       </li>
