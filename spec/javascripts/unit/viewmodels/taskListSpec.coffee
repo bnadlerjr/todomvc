@@ -1,6 +1,7 @@
 describe "task list view model", ->
     beforeEach ->
         @taskList = new App.ViewModels.TaskList()
+        @task = new App.Models.Task({title: "My Task"})
 
     it "has an empty task list when initialized", ->
         expect(@taskList.items()).toEqual([])
@@ -10,8 +11,7 @@ describe "task list view model", ->
         expect(@taskList.newTaskInput()).toEqual("Some task")
 
     it "is visible if there are items in list", ->
-        task = new App.Models.Task({title: "My Task"})
-        @taskList.items([task])
+        @taskList.items([@task])
         expect(@taskList.isVisible()).toBe(true)
 
     it "is invisible if list is empty", ->
@@ -72,7 +72,33 @@ describe "task list view model", ->
 
     describe "removing an item", ->
         it "deletes the item from the list", ->
-            task = new App.Models.Task({title: "My Task"})
-            @taskList.items([task])
-            @taskList.removeItem(task)
+            @taskList.items([@task])
+            @taskList.removeItem(@task)
             expect(@taskList.items()).toEqual([])
+
+    describe "editing an item", ->
+        it "can be placed in edit mode", ->
+            @taskList.items([@task])
+            @taskList.editItem(@task)
+            expect(@task.editing()).toEqual(true)
+            expect(@task.previousTitle).toEqual("My Task")
+
+        it "can cancel edit mode", ->
+            @taskList.items([@task])
+            @taskList.editItem(@task)
+
+            @task.title("edited title")
+
+            @taskList.cancelEditingItem(@task)
+            expect(@task.editing()).toBe(false)
+            expect(@task.title()).toEqual("My Task")
+
+        it "can save changes", ->
+            @taskList.items([@task])
+            @taskList.editItem(@task)
+
+            @task.title("edited title")
+
+            @taskList.saveEditedItem(@task)
+            expect(@task.editing()).toBe(false)
+            expect(@task.title()).toEqual("edited title")

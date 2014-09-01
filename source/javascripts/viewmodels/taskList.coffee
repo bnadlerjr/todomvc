@@ -14,6 +14,17 @@ class App.ViewModels.TaskList
     removeItem: (item) =>
         @items.remove(item)
 
+    editItem: (item) =>
+        item.editing(true)
+        item.previousTitle = item.title()
+
+    cancelEditingItem: (item) =>
+        item.editing(false)
+        item.title(item.previousTitle)
+
+    saveEditedItem: (item) =>
+        item.editing(false)
+
     isVisible: ->
         @items().length > 0
 
