@@ -23,3 +23,14 @@ describe "task list view model", ->
 
         it "clears the new task input field", ->
             expect(@taskList.newTaskInput()).toEqual("")
+
+        it "trims whitespace from title", ->
+            @taskList.newTaskInput("   item with whitespace   ")
+            @taskList.addItem()
+            item = @taskList.items()[1]
+            expect(item.title()).toEqual("item with whitespace")
+
+        it "does not add blank items", ->
+            @taskList.newTaskInput("")
+            @taskList.addItem()
+            expect(@taskList.items().length).toEqual(1)
