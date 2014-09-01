@@ -17,6 +17,33 @@ describe "task list view model", ->
     it "is invisible if list is empty", ->
         expect(@taskList.isVisible()).toBe(false)
 
+    it "can report the number of incomplete items", ->
+        @taskList.items([
+            new App.Models.Task({title: "Task #1"})
+            new App.Models.Task({title: "Task #2"})
+            new App.Models.Task({title: "Task #3"})
+        ])
+
+        expect(@taskList.numberIncomplete()).toEqual(3)
+        @taskList.items()[0].completed(true)
+        expect(@taskList.numberIncomplete()).toEqual(2)
+
+    describe "item count text", ->
+        it "is singular if there is one item", ->
+            @taskList.items([new App.Models.Task({title: "Task #1"})])
+            expect(@taskList.itemCountText()).toEqual("item")
+
+        it "is plural if there are more than one items", ->
+            @taskList.items([
+                new App.Models.Task({title: "Task #1"})
+                new App.Models.Task({title: "Task #2"})
+            ])
+            expect(@taskList.itemCountText()).toEqual("items")
+
+        it "is plural if there are zero items", ->
+            @taskList.items([])
+            expect(@taskList.itemCountText()).toEqual("items")
+
     describe "adding an item", ->
         beforeEach ->
             @taskList.newTaskInput("My Item")

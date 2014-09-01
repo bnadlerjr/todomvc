@@ -16,3 +16,9 @@ class App.ViewModels.TaskList
 
     isVisible: ->
         @items().length > 0
+
+    numberIncomplete: ->
+        @items().filter((item) -> !item.completed()).length
+
+    itemCountText: =>
+        if 1 == @items().length then "item" else "items"

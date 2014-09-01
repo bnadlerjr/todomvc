@@ -39,8 +39,11 @@
   </section>
   <!-- This footer should hidden by default and shown when there are todos -->
   <footer id="footer" data-bind="visible: isVisible()">
-    <!-- This should be `0 items left` by default -->
-    <span id="todo-count"><strong>1</strong> item left</span>
+    <span id="todo-count">
+      <strong data-bind="text: numberIncomplete()"></strong>
+      <span data-bind="text: itemCountText()"></span>
+      left
+    </span>
     <!-- Remove this if you don't implement routing -->
     <ul id="filters">
       <li>
