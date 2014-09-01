@@ -2,7 +2,7 @@
 Sample todomvc implementation using [knockoutJS](http://knockoutjs.com/index.html).
 
 ## About
-This is my version of the [todomvc](http://todomvc.com/) application using [knockoutjs](http://knockoutjs.com/index.html). The project also uses [Middleman](http://middlemanapp.com/) for handling HTML templating and stylesheet / javascript management. The core app is written in [CoffeeScript](http://coffeescript.org/).
+This is my version of the [todomvc](http://todomvc.com/) application using [knockoutJS](http://knockoutjs.com/index.html). The project also uses [Middleman](http://middlemanapp.com/) for handling HTML templating and stylesheet / javascript management. The core app is written in [CoffeeScript](http://coffeescript.org/).
 
 ### Project Layout
 The standard Middleman [project layout](http://middlemanapp.com/basics/directory-structure/) is used. The `source/javascripts` folder is organized into 3 sub-folders for KnockoutJS models, view models and bindings.
@@ -16,8 +16,8 @@ The standard Middleman [project layout](http://middlemanapp.com/basics/directory
 ├── config.rb
 ├── source
 │   ├── images
-│   │   └── bg.png
-│   ├── index.html.erb
+│   │   └── ...
+│   ├── index.html.erb # main page
 │   ├── javascripts
 │   │   ├── all.coffee # main app
 │   │   ├── bindings
@@ -27,9 +27,9 @@ The standard Middleman [project layout](http://middlemanapp.com/basics/directory
 │   │   └── viewmodels
 │   │       └── ...    # KnockoutJS view models
 │   ├── layouts
-│   │   └── layout.erb
+│   │   └── ...
 │   └── stylesheets
-│       └── all.css
+│       └── ...
 └── spec
     └── javascripts
         ├── bindings
