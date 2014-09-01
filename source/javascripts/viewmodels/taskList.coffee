@@ -10,3 +10,6 @@ class App.ViewModels.TaskList
         if "" != @newTaskInput()
             @items.push(new App.Models.Task({title: @newTaskInput().trim()}))
             @newTaskInput("")
+
+    isVisible: ->
+        @items().length > 0

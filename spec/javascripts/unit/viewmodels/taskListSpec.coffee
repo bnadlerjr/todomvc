@@ -9,6 +9,14 @@ describe "task list view model", ->
         @taskList.newTaskInput("Some task")
         expect(@taskList.newTaskInput()).toEqual("Some task")
 
+    it "is visible if there are items in list", ->
+        task = new App.Models.Task({title: "My Task"})
+        @taskList.items([task])
+        expect(@taskList.isVisible()).toBe(true)
+
+    it "is invisible if list is empty", ->
+        expect(@taskList.isVisible()).toBe(false)
+
     describe "adding an item", ->
         beforeEach ->
             @taskList.newTaskInput("My Item")
