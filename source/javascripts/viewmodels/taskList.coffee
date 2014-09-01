@@ -11,5 +11,8 @@ class App.ViewModels.TaskList
             @items.push(new App.Models.Task({title: @newTaskInput().trim()}))
             @newTaskInput("")
 
+    removeItem: (item) =>
+        @items.remove(item)
+
     isVisible: ->
         @items().length > 0

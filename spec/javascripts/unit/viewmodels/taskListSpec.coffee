@@ -42,3 +42,10 @@ describe "task list view model", ->
             @taskList.newTaskInput("")
             @taskList.addItem()
             expect(@taskList.items().length).toEqual(1)
+
+    describe "removing an item", ->
+        it "deletes the item from the list", ->
+            task = new App.Models.Task({title: "My Task"})
+            @taskList.items([task])
+            @taskList.removeItem(task)
+            expect(@taskList.items()).toEqual([])
