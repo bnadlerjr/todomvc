@@ -28,6 +28,17 @@ describe "task list view model", ->
         @taskList.items()[0].completed(true)
         expect(@taskList.numberIncomplete()).toEqual(2)
 
+    it "can report the number of completed items", ->
+        @taskList.items([
+            new App.Models.Task({title: "Task #1"})
+            new App.Models.Task({title: "Task #2"})
+            new App.Models.Task({title: "Task #3"})
+        ])
+
+        expect(@taskList.numberCompleted()).toEqual(0)
+        @taskList.items()[0].completed(true)
+        expect(@taskList.numberCompleted()).toEqual(1)
+
     describe "item count text", ->
         it "is singular if there is one item", ->
             @taskList.items([new App.Models.Task({title: "Task #1"})])
@@ -70,11 +81,19 @@ describe "task list view model", ->
             @taskList.addItem()
             expect(@taskList.items().length).toEqual(1)
 
-    describe "removing an item", ->
-        it "deletes the item from the list", ->
+    describe "removing items", ->
+        it "removes any specific item", ->
             @taskList.items([@task])
             @taskList.removeItem(@task)
             expect(@taskList.items()).toEqual([])
+
+        it "removes all completed items", ->
+            @taskList.items([
+                @task,
+                new App.Models.Task({title: "Another task", completed: true})
+            ])
+            @taskList.removeCompleted()
+            expect(@taskList.items()).toEqual([@task])
 
     describe "editing an item", ->
         beforeEach ->

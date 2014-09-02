@@ -20,6 +20,9 @@ class App.ViewModels.TaskList
     removeItem: (item) =>
         @items.remove(item)
 
+    removeCompleted: =>
+        @items.remove(filters["completed"])
+
     editItem: (item) =>
         item.editing(true)
         item.previousTitle = item.title()
@@ -39,8 +42,11 @@ class App.ViewModels.TaskList
     isVisible: ->
         @items().length > 0
 
+    numberCompleted: ->
+        @items().filter(filters["completed"]).length
+
     numberIncomplete: ->
-        @items().filter((item) -> !item.completed()).length
+        @items().filter(filters["active"]).length
 
     itemCountText: =>
         if 1 == @items().length then "item" else "items"
