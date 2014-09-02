@@ -5,6 +5,12 @@ class App.ViewModels.TaskList
     constructor: ->
         @items = ko.observableArray()
         @newTaskInput = ko.observable()
+        @filterBy = ko.observable("all")
+        @filteredItems = ko.computed =>
+            if @filterBy() of filters
+                @items().filter(filters[@filterBy()])
+            else
+                throw "Unsupported filter (#{@filterBy()})."
 
     addItem: ->
         if "" != @newTaskInput()
@@ -38,3 +44,9 @@ class App.ViewModels.TaskList
 
     itemCountText: =>
         if 1 == @items().length then "item" else "items"
+
+    filters = {
+        "active": (item) -> !item.completed(),
+        "all": (item) -> item,
+        "completed": (item) -> item.completed()
+    }

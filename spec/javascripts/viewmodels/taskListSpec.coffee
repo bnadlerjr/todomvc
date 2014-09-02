@@ -119,3 +119,28 @@ describe "task list view model", ->
                 @task.title("")
                 @taskList.saveEditedItem(@task)
                 expect(@taskList.items().length).toEqual(0)
+
+    describe "filtering items", ->
+        beforeEach ->
+            @taskList.items([
+                new App.Models.Task({title: "Task #1", completed: false}),
+                new App.Models.Task({title: "Task #2", completed: false}),
+                new App.Models.Task({title: "Task #3", completed: true}),
+                new App.Models.Task({title: "Task #4", completed: true}),
+                new App.Models.Task({title: "Task #5", completed: true})
+            ])
+
+        it "by completed", ->
+            @taskList.filterBy("completed")
+            expect(@taskList.filteredItems().length).toEqual(3)
+
+        it "by active", ->
+            @taskList.filterBy("active")
+            expect(@taskList.filteredItems().length).toEqual(2)
+
+        it "by all", ->
+            @taskList.filterBy("all")
+            expect(@taskList.filteredItems().length).toEqual(5)
+
+        it "by unknown filter raises an error", ->
+            expect(=> @taskList.filterBy("foo")).toThrow("Unsupported filter (foo).")

@@ -7,7 +7,7 @@
   <section id="main" data-bind="visible: isVisible()">
     <input id="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
-    <ul id="todo-list" data-bind="foreach: items">
+    <ul id="todo-list" data-bind="foreach: filteredItems">
       <li data-bind="css { completed: completed(), editing: editing() }">
         <div class="view">
           <input class="toggle" type="checkbox" data-bind="checked: completed">
@@ -25,16 +25,15 @@
       <span data-bind="text: itemCountText()"></span>
       left
     </span>
-    <!-- Remove this if you don't implement routing -->
     <ul id="filters">
       <li>
-        <a class="selected" href="#/">All</a>
+        <a data-bind="css: { selected: 'all' == filterBy() }" href="#/all">All</a>
       </li>
       <li>
-        <a href="#/active">Active</a>
+        <a data-bind="css: { selected: 'active' == filterBy() }" href="#/active">Active</a>
       </li>
       <li>
-        <a href="#/completed">Completed</a>
+        <a data-bind="css: { selected: 'completed' == filterBy() }" href="#/completed">Completed</a>
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
