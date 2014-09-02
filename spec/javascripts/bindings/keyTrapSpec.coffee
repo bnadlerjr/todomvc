@@ -4,7 +4,7 @@ describe "key trap binding handlers", ->
     ANY_KEY = 50
 
     triggerKeyup = (node, keyCode) ->
-        e = jQuery.Event("keyup")
+        e = $.Event("keyup")
         e.which = e.keyCode = keyCode
         node.trigger(e);
 

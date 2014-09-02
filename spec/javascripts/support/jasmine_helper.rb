@@ -5,16 +5,12 @@
 require "sprockets"
 
 Jasmine.configure do |config|
-  config.add_rack_path("/source/", lambda {
-    Sprockets::Environment.new do |env|
-      env.append_path("source/javascripts")
-      env.append_path("bower_components")
-    end
-  })
-
-  config.add_rack_path("/spec/", lambda {
-    Sprockets::Environment.new do |env|
-      env.append_path("spec/javascripts")
-    end
-  })
+  %w(source spec).each do |f|
+    config.add_rack_path("/#{f}/", lambda {
+      Sprockets::Environment.new do |env|
+        env.append_path("#{f}/javascripts")
+        env.append_path("bower_components")
+      end
+    })
+  end
 end

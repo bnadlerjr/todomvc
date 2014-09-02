@@ -1,6 +1,6 @@
-//= require jquery/dist/jquery.min
+//= require zeptojs/src/zepto
 //= require knockoutjs/dist/knockout
 //= require_tree .
 
-jQuery ($) ->
+Zepto ($) ->
     ko.applyBindings(new App.ViewModels.TaskList())
