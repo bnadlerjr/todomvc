@@ -12,6 +12,14 @@ class App.ViewModels.TaskList
             throw "Unsupported filter (#{fb})." unless fb of filters
             @items().filter(filters[fb])
 
+        @allComplete = ko.computed({
+            read: =>
+                0 == @numberIncomplete()
+            write: (newValue) =>
+                setCompleted = (item) -> item.completed(newValue)
+                @items().forEach(setCompleted)
+        })
+
         ko.computed =>
             sanitizeItem = (item) ->
                 delete item.editing
@@ -21,8 +29,9 @@ class App.ViewModels.TaskList
             localStorage["todomvc"] = ko.toJSON(items)
 
     addItem: =>
-        if "" != @newTaskInput()
-            @items.push(new App.Models.Task({title: @newTaskInput().trim()}))
+        trimmedTitle = @newTaskInput().trim()
+        if trimmedTitle
+            @items.push(new App.Models.Task({title: trimmedTitle}))
             @newTaskInput("")
 
     removeItem: (item) =>

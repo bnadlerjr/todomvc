@@ -170,3 +170,36 @@ describe "task list view model", ->
             @taskList.items([@task])
             expected = '[{"title":"My Task","completed":false}]'
             expect(localStorage["todomvc"]).toEqual(expected)
+
+    describe "all marker", ->
+        it "indicates if all items are complete", ->
+            @taskList.items([@task])
+            expect(@taskList.allComplete()).toBe(false)
+
+        it "indicates if all items are incomplete", ->
+            @taskList.items([
+                new App.Models.Task({title: "Some Task", completed: true}),
+                new App.Models.Task({title: "Another Task", completed: true})
+            ])
+
+            expect(@taskList.allComplete()).toBe(true)
+
+        it "marks all items as completed when true", ->
+            @taskList.items([
+                new App.Models.Task({title: "Some Task"}),
+                new App.Models.Task({title: "Another Task"})
+            ])
+
+            @taskList.allComplete(true)
+            expect(@taskList.items()[0].completed()).toBe(true)
+            expect(@taskList.items()[1].completed()).toBe(true)
+
+        it "marks all items as incomplete when false", ->
+            @taskList.items([
+                new App.Models.Task({title: "Some Task", completed: true}),
+                new App.Models.Task({title: "Another Task", completed: true})
+            ])
+
+            @taskList.allComplete(false)
+            expect(@taskList.items()[0].completed()).toBe(false)
+            expect(@taskList.items()[1].completed()).toBe(false)

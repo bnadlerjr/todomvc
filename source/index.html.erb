@@ -5,7 +5,7 @@
   </header>
 
   <section id="main" data-bind="visible: isVisible()">
-    <input id="toggle-all" type="checkbox">
+    <input id="toggle-all" type="checkbox" data-bind="checked: allComplete">
     <label for="toggle-all">Mark all as complete</label>
     <ul id="todo-list" data-bind="foreach: filteredItems">
       <li data-bind="css { completed: completed(), editing: editing() }">
