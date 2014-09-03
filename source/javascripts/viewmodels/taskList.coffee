@@ -8,10 +8,9 @@ class App.ViewModels.TaskList
         @filterBy = ko.observable("all")
 
         @filteredItems = ko.computed =>
-            if @filterBy() of filters
-                @items().filter(filters[@filterBy()])
-            else
-                throw "Unsupported filter (#{@filterBy()})."
+            fb = @filterBy()
+            throw "Unsupported filter (#{fb})." unless fb of filters
+            @items().filter(filters[fb])
 
         ko.computed =>
             sanitizeItem = (item) ->
@@ -21,7 +20,7 @@ class App.ViewModels.TaskList
             items = ko.utils.arrayMap(ko.toJS(@items), sanitizeItem)
             localStorage["todomvc"] = ko.toJSON(items)
 
-    addItem: ->
+    addItem: =>
         if "" != @newTaskInput()
             @items.push(new App.Models.Task({title: @newTaskInput().trim()}))
             @newTaskInput("")
