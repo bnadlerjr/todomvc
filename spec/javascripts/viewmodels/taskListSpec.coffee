@@ -163,3 +163,10 @@ describe "task list view model", ->
 
         it "by unknown filter raises an error", ->
             expect(=> @taskList.filterBy("foo")).toThrow("Unsupported filter (foo).")
+
+    describe "persistence", ->
+        it "saves to local storage when task list is updated", ->
+            localStorage.removeItem("todomvc-test")
+            @taskList.items([@task])
+            expected = '[{"title":"My Task","completed":false}]'
+            expect(localStorage["todomvc"]).toEqual(expected)

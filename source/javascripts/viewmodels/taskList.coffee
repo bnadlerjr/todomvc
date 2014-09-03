@@ -6,11 +6,20 @@ class App.ViewModels.TaskList
         @items = ko.observableArray()
         @newTaskInput = ko.observable()
         @filterBy = ko.observable("all")
+
         @filteredItems = ko.computed =>
             if @filterBy() of filters
                 @items().filter(filters[@filterBy()])
             else
                 throw "Unsupported filter (#{@filterBy()})."
+
+        ko.computed =>
+            sanitizeItem = (item) ->
+                delete item.editing
+                item
+
+            items = ko.utils.arrayMap(ko.toJS(@items), sanitizeItem)
+            localStorage["todomvc"] = ko.toJSON(items)
 
     addItem: ->
         if "" != @newTaskInput()
